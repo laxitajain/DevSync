@@ -1,0 +1,286 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────────────── */
+
+:root {
+  color-scheme: light;
+
+  /* Brand palette — Forest green & acorn brown theme */
+  --ds-blue-50: #f2f7f4;
+  --ds-blue-100: #e2ede7;
+  --ds-blue-200: #c3dbce;
+  --ds-blue-500: #488b68;
+  --ds-blue-600: #337050;
+  --ds-blue-700: #275c40;
+  --ds-blue-800: #1c4530;
+  --ds-blue-900: #112d1f;
+
+  --ds-red-50: #fff5f5;
+  --ds-red-100: #ffe3e3;
+  --ds-red-500: #e03131;
+  --ds-red-600: #c92a2a;
+  --ds-red-700: #b01a1a;
+
+  --ds-green-50: #ebfbee;
+  --ds-green-100: #d3f9d8;
+  --ds-green-500: #37b24d;
+  --ds-green-600: #2f9e44;
+  --ds-green-700: #2b8a3e;
+
+  /* Acorn Gold / Warning colors */
+  --ds-yellow-50: #fefcf0;
+  --ds-yellow-100: #fdf0c2;
+  --ds-yellow-500: #e6b00f;
+  --ds-yellow-600: #c29107;
+  --ds-yellow-700: #9e7400;
+
+  --ds-purple-50: #fbf6f0;
+  --ds-purple-100: #f3e6d8;
+  --ds-purple-500: #9c6d48;
+  --ds-purple-600: #805433;
+
+  /* Neutrals: Warm birch/oatmeal */
+  --ds-neutral-0: #ffffff;
+  --ds-neutral-50: #faf9f5;
+  --ds-neutral-100: #f2efe9;
+  --ds-neutral-200: #e5dfd3;
+  --ds-neutral-300: #c7bfad;
+  --ds-neutral-400: #a19882;
+  --ds-neutral-500: #7e755f;
+  --ds-neutral-600: #5d5646;
+  --ds-neutral-700: #423d32;
+  --ds-neutral-800: #2c2922;
+  --ds-neutral-900: #181713;
+
+  /* Semantic tokens */
+  --color-bg-body: var(--ds-neutral-50);
+  --color-bg-surface: var(--ds-neutral-0);
+  --color-bg-surface-sunken: var(--ds-neutral-100);
+  --color-bg-surface-raised: var(--ds-neutral-0);
+  --color-bg-overlay: var(--ds-neutral-0);
+  --color-bg-sidebar: var(--ds-neutral-100);
+  --color-bg-sidebar-hover: var(--ds-neutral-200);
+  --color-bg-sidebar-active: var(--ds-blue-100);
+
+  --color-bg-brand: var(--ds-blue-700);
+  --color-bg-brand-hover: var(--ds-blue-800);
+  --color-bg-danger: var(--ds-red-700);
+  --color-bg-danger-hover: var(--ds-red-600);
+  --color-bg-success: var(--ds-green-600);
+  --color-bg-input: var(--ds-neutral-0);
+  --color-bg-input-hover: var(--ds-neutral-50);
+  --color-bg-disabled: var(--ds-neutral-100);
+
+  --color-text-default: var(--ds-neutral-800);
+  --color-text-subtle: var(--ds-neutral-600);
+  --color-text-subtlest: var(--ds-neutral-400);
+  --color-text-inverse: var(--ds-neutral-0);
+  --color-text-brand: var(--ds-blue-700);
+  --color-text-danger: var(--ds-red-700);
+  --color-text-success: var(--ds-green-700);
+  --color-text-warning: var(--ds-yellow-700);
+  --color-text-sidebar: var(--ds-neutral-600);
+  --color-text-sidebar-active: var(--ds-blue-700);
+
+  --color-border-default: var(--ds-neutral-200);
+  --color-border-input: var(--ds-neutral-300);
+  --color-border-focused: var(--ds-blue-600);
+  --color-border-brand: var(--ds-blue-700);
+  --color-border-danger: var(--ds-red-600);
+
+  --color-icon-default: var(--ds-neutral-500);
+  --color-icon-subtle: var(--ds-neutral-400);
+
+  /* Spacing scale */
+  --space-0: 0;
+  --space-025: 2px;
+  --space-050: 4px;
+  --space-075: 6px;
+  --space-100: 8px;
+  --space-150: 12px;
+  --space-200: 16px;
+  --space-250: 20px;
+  --space-300: 24px;
+  --space-400: 32px;
+  --space-500: 40px;
+  --space-600: 48px;
+
+  /* Radii — slightly rounder and friendlier for squirrel/organic theme */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows — subtle, warm tone tint in shadow */
+  --shadow-raised: 0 1px 3px rgba(24, 23, 19, 0.06), 0 0 1px rgba(24, 23, 19, 0.08);
+  --shadow-overlay: 0 4px 12px rgba(24, 23, 19, 0.1), 0 0 1px rgba(24, 23, 19, 0.1);
+  --shadow-card-hover: 0 2px 8px rgba(24, 23, 19, 0.08), 0 0 1px rgba(24, 23, 19, 0.1);
+
+  /* Typography */
+  --font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-size-xs: 0.6875rem;    /* 11px */
+  --font-size-sm: 0.75rem;      /* 12px */
+  --font-size-md: 0.8125rem;    /* 13px */
+  --font-size-base: 0.875rem;   /* 14px — Jira's body size */
+  --font-size-lg: 1rem;         /* 16px */
+  --font-size-xl: 1.25rem;      /* 20px */
+  --font-size-2xl: 1.5rem;      /* 24px */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+
+  /* Sidebar dimensions */
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 0px;
+  --header-height: 0px; /* no top header in sidebar layout */
+
+  /* Z-index scale */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay-backdrop: 300;
+  --z-overlay: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+
+  /* Transitions */
+  --duration-fast: 120ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --ease-out: cubic-bezier(0.25, 0, 0, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.15, 1);
+}
+
+/* ─── Reset & Base ──────────────────────────────────────────────────── */
+
+html,
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+
+body {
+  background-color: var(--color-bg-body);
+  color: var(--color-text-default);
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Tailwind v4 theme extension ───────────────────────────────────── */
+
+@theme {
+  --color-ds-blue-50: #f2f7f4;
+  --color-ds-blue-100: #e2ede7;
+  --color-ds-blue-200: #c3dbce;
+  --color-ds-blue-500: #488b68;
+  --color-ds-blue-600: #337050;
+  --color-ds-blue-700: #275c40;
+  --color-ds-blue-800: #1c4530;
+
+  --color-ds-red-50: #fff5f5;
+  --color-ds-red-100: #ffe3e3;
+  --color-ds-red-600: #c92a2a;
+  --color-ds-red-700: #b01a1a;
+
+  --color-ds-green-50: #ebfbee;
+  --color-ds-green-100: #d3f9d8;
+  --color-ds-green-600: #2f9e44;
+  --color-ds-green-700: #2b8a3e;
+
+  --color-ds-yellow-50: #fefcf0;
+  --color-ds-yellow-100: #fdf0c2;
+  --color-ds-yellow-700: #9e7400;
+
+  --color-ds-purple-50: #fbf6f0;
+  --color-ds-purple-100: #f3e6d8;
+  --color-ds-purple-600: #805433;
+
+  --color-ds-neutral-0: #ffffff;
+  --color-ds-neutral-50: #faf9f5;
+  --color-ds-neutral-100: #f2efe9;
+  --color-ds-neutral-200: #e5dfd3;
+  --color-ds-neutral-300: #c7bfad;
+  --color-ds-neutral-400: #a19882;
+  --color-ds-neutral-500: #7e755f;
+  --color-ds-neutral-600: #5d5646;
+  --color-ds-neutral-700: #423d32;
+  --color-ds-neutral-800: #2c2922;
+  --color-ds-neutral-900: #181713;
+}
+
+/* ─── Focus styles ──────────────────────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--color-border-focused);
+  outline-offset: 2px;
+}
+
+/* ─── Selection ─────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: var(--ds-blue-100);
+  color: var(--ds-blue-900);
+}
+
+/* ─── Scrollbar (subtle) ────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ds-neutral-300);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ds-neutral-400);
+}
+
+/* ─── Keyframe animations ───────────────────────────────────────────── */
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

@@ -1,0 +1,27 @@
+{
+  "name": "devsync",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace @devsync/api",
+    "dev:api": "npm run dev --workspace @devsync/api",
+    "dev:worker": "npm run dev:worker --workspace @devsync/api",
+    "dev:web": "npm run dev --workspace @devsync/web",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspace @devsync/api",
+    "test:e2e": "npm run test:e2e --workspace @devsync/api",
+    "db:generate": "npm run db:generate --workspace @devsync/db",
+    "db:migrate": "npm run db:migrate --workspace @devsync/db --",
+    "db:deploy": "npm run db:deploy --workspace @devsync/db",
+    "db:seed": "npm run db:seed --workspace @devsync/db",
+    "db:studio": "npm run db:studio --workspace @devsync/db"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
+  }
+}

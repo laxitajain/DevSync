@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "sourceMap": true,
+    "incremental": true,
+    "types": ["node", "jest", "multer"]
+  },
+  "include": ["src", "test"]
+}
+

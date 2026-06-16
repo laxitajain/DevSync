@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancel superseded runs on the same ref to save CI minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: devsync
+          POSTGRES_PASSWORD: devsync
+          POSTGRES_DB: devsync
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U devsync"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql://devsync:devsync@localhost:5432/devsync?schema=public
+      TEST_DATABASE_URL: postgresql://devsync:devsync@localhost:5432/devsync?schema=devsync_test
+      REDIS_URL: redis://localhost:6379
+      JWT_ACCESS_SECRET: ci-access-secret
+      JWT_REFRESH_SECRET: ci-refresh-secret
+      JWT_ACCESS_EXPIRES_IN: 15m
+      JWT_REFRESH_EXPIRES_IN: 7d
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npm run db:generate
+
+      - name: Build shared db package
+        run: npm run build --workspace @devsync/db
+
+      - name: Typecheck API
+        run: npx tsc -p apps/api/tsconfig.json --noEmit
+
+      - name: Unit tests
+        run: npm run test
+
+      - name: Integration (e2e) tests
+        run: npm run test:e2e
+
+      - name: Build API
+        run: npm run build --workspace @devsync/api
