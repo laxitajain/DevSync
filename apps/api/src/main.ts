@@ -34,7 +34,7 @@ async function bootstrap() {
 
   const config = app.get(ConfigService);
   const port = config.get<number>("PORT", 4000);
-  await app.listen(port);
+  await app.listen(port, "0.0.0.0");
 
   app.get(Logger).log(`DevSync API listening on port ${port}`);
 }
